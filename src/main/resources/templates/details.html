@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+    body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+<br>
+<div class="w3-top">
+    <div class="w3-row w3-padding w3-black">
+        <div class="w3-col s4">
+            <a href="/main" class="w3-button w3-block w3-black">HOME</a>
+        </div>
+        <div class="w3-col s4">
+            <a href="/" class="w3-button w3-block w3-black">DODAJ ZADANIE</a>
+        </div>
+        <div class="w3-col s4">
+            <a href="/zadania" class="w3-button w3-block w3-black">LISTA ZADAŃ</a>
+        </div>
+    </div>
+</div>
+
+<!-- w3-content defines a container for fixed size centered content,
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1400px">
+
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-32">
+        <h1><b>MY BLOG</b></h1>
+        <p>ŚWIAT MATEMTYKI <span class="w3-tag">BY mArTa</span></p>
+    </header>
+
+    <!-- Grid -->
+    <div class="w3-row">
+
+        <!-- Blog entries -->
+        <div class="w3-col l8 s12">
+            <!-- Blog entry -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <div class="w3-container">
+                    <h3><b>Zadanie</b></h3>
+                    <h5>Tytuł zadania: <span th:text="${zadanie.title}" class="w3-opacity"/></h5>
+                </div>
+
+                <div class="w3-container">
+                    <p>Autor zadania: </p>
+                    <p th:text="${zadanie.username}"/>
+                    <p>Treść zadania: </p>
+                    <p th:text="${zadanie.tresczadania}"/>
+                    <p>Rozwiązanie: </p>
+                    <p th:text="${zadanie.odpowiedz}"/>
+                    <div class="w3-row">
+                        <div class="w3-col m8 s12">
+                            <form action="/zadania">
+                                <p><button class="w3-button w3-padding-small w3-white w3-border"><b>Wróć do listy zadań »</b></button></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Blog entry -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <div class="w3-container">
+                    <h2>Dodaj komentarz</h2>
+                </div>
+                <form class="w3-container" action="/comments" method="post" th:object="${comment}">
+                    <input type="hidden" th:field="*{zadanie}" >
+                    <p>
+                        <label class="w3-text-grey"><b>Nazwa użytkownika</b></label>
+                        <input class="w3-input w3-border w3-light-grey" th:field="*{commentUserName}" type="text" name="commentUserName" required></p>
+                    <p>
+                        <label class="w3-text-grey   "><b>Treść komentarza</b></label>
+                        <input class="w3-input w3-border w3-light-grey size " th:filed="*{contentOfComment}" type="text"  name="contentOfComment" id="contentOfComment" required></p>
+                    <p><button class="w3-button w3-padding-large w3-white w3-border"><b>Dodaj komentarz  »</b></button></p>
+
+                </form>
+            </div>
+
+            <!-- END BLOG ENTRIES -->
+        </div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+
+                <div class="w3-container w3-white">
+                    <h4><b>Komentarze</b></h4>
+                    <ul th:each="comment: ${zadanie.comments}">
+                        <li th:text="${comment}"/>
+                        <!--        ZA WYSWIETLANIE WSZYTSKICH ZADAN ODPOWIADA TYLKO I WYLACZNIE HTML-->
+
+                    </ul>
+                </div>
+            </div><hr>
+
+            <!-- Posts -->
+
+            <!-- Labels / tags -->
+
+
+            <!-- END Introduction Menu -->
+        </div>
+
+        <!-- END GRID -->
+    </div><br>
+
+    <!-- END w3-content -->
+</div>
+
+<!-- Footer -->
+
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
+<!--    <meta name="description" content="">-->
+<!--    <meta name="author" content="">-->
+<!--    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">-->
+<!--    ​-->
+<!--    <title>Details</title>-->
+<!--    ​-->
+<!--    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">-->
+<!--    ​-->
+<!--    &lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"-->
+<!--          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--    ​<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+<!--    <link rel="stylesheet" href="details.css">-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Zadanie:</h1>-->
+<!--<p th:text="${zadanie.title}"/>-->
+<!--<h3>Imię użytkownika : </h3>-->
+<!--<p th:text="${zadanie.username}"/>-->
+<!--<h3>Treść zadania :</h3>-->
+<!--<p th:text="${zadanie.tresczadania}"/>-->
+<!--<h3>Odpowiedz do zadania:</h3>-->
+<!--<p th:text="${zadanie.odpowiedz}"/>-->
+
+<!--&lt;!&ndash; TUTAJ BEDZIE MOZNA DODAWAC KOMENTARZE &ndash;&gt;-->
+<!--<h3>Komentarze : </h3>-->
+<!--<ul th:each="comment: ${zadanie.comments}">-->
+<!--    <li th:text="${comment}"/>-->
+<!--       &lt;!&ndash;        ZA WYSWIETLANIE WSZYTSKICH ZADAN ODPOWIADA TYLKO I WYLACZNIE HTML&ndash;&gt;-->
+
+<!--</ul>-->
+
+<!--<h3>Dodaj nowy komentarz : </h3>-->
+<!--<form action="/comments" method="post" th:object="${comment}">-->
+<!--    <input type="hidden" th:field="*{zadanie}" >-->
+<!--    <input th:field="*{commentUserName}" type="text" placeholder="imiekomentujacego" name="commentUserName">-->
+<!--    <input th:filed="*{contentOfComment}" type="text" placeholder="opiskomentarza" name="contentOfComment" id="contentOfComment">-->
+<!--    <input type="submit" value="dodaj">-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
